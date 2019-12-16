@@ -1,7 +1,7 @@
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 const path = require("path");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
@@ -11,6 +11,9 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 const enableBundleAnalyzer = process.env.ENABLE_ANALYZER === "true";
 
 module.exports = merge(common, {
+  output: {
+    path: path.resolve(process.cwd(), "dist")
+  },
   mode: "production",
   devtool: "source-map",
   module: {
@@ -36,8 +39,7 @@ module.exports = merge(common, {
     runtimeChunk: false
   },
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, "../dist")], {
-      root: process.cwd(),
+    new CleanWebpackPlugin({
       verbose: true,
       dry: false
     }),
