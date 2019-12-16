@@ -28,7 +28,9 @@ export const nav = {
     travelingpants: target => {
       if (target) {
         const $target = document.getElementById(target);
-        window.scrollTo(0, $target.offsetTop);
+        if($target) {
+          window.scrollTo(0, $target.offsetTop);
+        }
       }
     },
     bind: el => {
