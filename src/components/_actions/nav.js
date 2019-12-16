@@ -28,7 +28,7 @@ export const nav = {
     travelingpants: target => {
       if (target) {
         const $target = document.getElementById(target);
-        if($target) {
+        if ($target) {
           window.scrollTo(0, $target.offsetTop);
         }
       }
