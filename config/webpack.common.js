@@ -8,7 +8,7 @@ module.exports = {
   output: {
     filename: "[name].[hash].js",
     path: path.resolve(__dirname, "../dist"),
-    publicPath: "/"
+    publicPath: "https://matheus.li/blog/wp-content/themes/matheus/dist/"
   },
   devServer: {
     port: 3042,
@@ -39,7 +39,7 @@ module.exports = {
         ]
       },
       {
-        test: /.*\.(gif|png|jp(e*)g|svg)$/i,
+        test: /.*\.(gif|png|jp(e*)g)$/i,
         use: [
           {
             loader: "url-loader",
@@ -56,10 +56,15 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.(ttf|otf|eot|woff|woff2|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(ttf|otf|eot|woff|woff2|svg|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [
           {
-            loader: "file-loader"
+            loader: "file-loader",
+            options: {
+              outputPath: "assets",
+              publicPath:
+                "https://matheus.li/blog/wp-content/themes/matheus/dist/assets"
+            }
           }
         ]
       }
@@ -67,7 +72,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: path.resolve(__dirname, "../public", "index.html")
+      cache: true,
+      template: path.resolve(__dirname, "../public", "index.html"),
+      inject: "head"
     })
   ],
   resolve: {
@@ -77,10 +84,6 @@ module.exports = {
         __dirname,
         "../node_modules/snapsvg/dist/snap.svg.js"
       )
-      // url: path.resolve(
-      //   __dirname,
-      //   "../node_modules/url-polyfill/url-polyfill.js"
-      // )
     }
   }
 };
