@@ -1,5 +1,6 @@
 import { WPLOCAL } from "../_constants";
-import { summon, popup } from "./dom";
+import { summon } from "./dom";
+import popup from "./popup";
 import { get } from "./fetch";
 
 const rootPath = window.location.pathname === "/";
