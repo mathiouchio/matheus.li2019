@@ -13,15 +13,17 @@ const PopupWrapper = props => {
   const [metaData, setMetaData] = useState({
     currentslide: 1,
     previouslide: 1,
-    portrait: false,
     muted: true
   });
+  const [portraits, setPortraits] = useState([]);
 
   const state = {
     ...props,
     ...data,
     metaData,
-    setMetaData
+    setMetaData,
+    portraits,
+    setPortraits
   };
 
   useEffect(
@@ -32,7 +34,6 @@ const PopupWrapper = props => {
   );
 
   const handleFetch = () => {
-    console.log(location);
     const { id } = location.state;
 
     get(REQUEST.POPUP(id)).then(res => {

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { POST_TYPE } from "../../_constants";
@@ -46,21 +45,25 @@ const portraitDetector = attr => {
 };
 
 const Gallery = props => {
-  const { loaded, data, metaData, setMetaData } = props;
+  const {
+    loaded,
+    data,
+    metaData,
+    setMetaData,
+    portraits,
+    setPortraits
+  } = props;
   const { currentslide, previouslide, muted } = metaData;
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState([]);
   let Slides = [];
 
   useEffect(
-    state => {
-      const dataCurrentIndex = currentslide - 1;
-
+    () => {
       if (loaded) {
         setMetaData({
           currentslide: currentslide,
           previouslide: previouslide,
-          muted: muted,
-          portrait: portraitDetector(data[dataCurrentIndex])
+          muted: muted
         });
       }
     },
@@ -69,7 +72,19 @@ const Gallery = props => {
 
   if (!loaded) return null;
 
-  const handleLoadedState = index => {
+  const handleLoadedState = (index, attr) => {
+    let newImgLoaded;
+    if (imgLoaded.length > 0) {
+      newImgLoaded = [...imgLoaded];
+    } else {
+      newImgLoaded = [];
+    }
+    newImgLoaded.splice(index, 0, true);
+
+    let newPortraits = [...portraits];
+    newPortraits.splice(index, 0, portraitDetector(attr));
+
+    setPortraits(newPortraits);
     setImgLoaded(true);
   };
 
@@ -102,7 +117,7 @@ const Gallery = props => {
           height={attr.media_details.height}
           srcSet={imgSrcset}
           sizes={imgSizes}
-          onLoad={() => handleLoadedState(dataIndex)}
+          onLoad={() => handleLoadedState(index, attr)}
         />
       </li>
     );
@@ -117,9 +132,10 @@ Gallery.propTypes = {
   metaData: PropTypes.shape({
     currentslide: PropTypes.number.isRequired,
     previouslide: PropTypes.number.isRequired,
-    portrait: PropTypes.bool.isRequired,
     muted: PropTypes.bool.isRequired
   }),
+  portraits: PropTypes.array.isRequired,
+  setPortraits: PropTypes.func.isRequired,
   setMetaData: PropTypes.func.isRequired
 };
 

@@ -37,7 +37,6 @@ Video.propTypes = {
   metaData: PropTypes.shape({
     currentslide: PropTypes.number.isRequired,
     previouslide: PropTypes.number.isRequired,
-    portrait: PropTypes.bool.isRequired,
     muted: PropTypes.bool.isRequired
   })
 };

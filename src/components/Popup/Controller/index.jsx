@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { CONTROL, POST_TYPE } from "../../_constants";
 
 const Controller = props => {
-  const { location, loaded, data, metaData, setMetaData } = props;
-  const { currentslide, muted, portrait } = metaData;
+  const { location, loaded, data, metaData, setMetaData, portraits } = props;
+  const { currentslide, muted } = metaData;
+  const currentIndex = -1 + currentslide;
   if (!location.state) return null;
 
   const {
@@ -76,7 +77,7 @@ const Controller = props => {
         <mute data-control={CONTROL.MUTE}>{muted ? "unmute" : "mute"}</mute>
       )}
       <fs data-control={CONTROL.FULLSCREEN}>{CONTROL.FULLSCREEN}</fs>
-      {portrait && <scroll>scroll</scroll>}
+      {portraits[currentIndex] && <scroll>scroll</scroll>}
     </div>
   );
 };
@@ -88,14 +89,12 @@ Controller.propTypes = {
   metaData: PropTypes.shape({
     currentslide: PropTypes.number.isRequired,
     previouslide: PropTypes.number.isRequired,
-    portrait: PropTypes.bool.isRequired,
     muted: PropTypes.bool.isRequired
   }),
+  portraits: PropTypes.array.isRequired,
   setMetaData: PropTypes.func.isRequired
 };
 
-Controller.defaultProps = {
-  portrait: false
-};
+Controller.defaultProps = {};
 
 export default Controller;

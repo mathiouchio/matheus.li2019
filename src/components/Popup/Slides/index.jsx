@@ -8,8 +8,8 @@ import Standard from "./standard";
 import Video from "./video";
 
 const Slides = props => {
-  console.log(props.location);
   if (!props.location.state) return null;
+
   const {
     location: {
       state: { format }
