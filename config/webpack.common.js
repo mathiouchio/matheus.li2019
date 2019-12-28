@@ -8,7 +8,7 @@ module.exports = {
   output: {
     filename: "[name].[hash].js",
     path: path.resolve(__dirname, "../dist"),
-    publicPath: "/"
+    publicPath: "https://matheus.li/blog/wp-content/themes/matheus/dist/"
   },
   devServer: {
     port: 3042,
@@ -59,7 +59,12 @@ module.exports = {
         test: /\.(ttf|otf|eot|woff|woff2|svg|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [
           {
-            loader: "file-loader"
+            loader: "file-loader",
+            options: {
+              outputPath: "assets",
+              publicPath:
+                "https://matheus.li/blog/wp-content/themes/matheus/dist/assets"
+            }
           }
         ]
       }
@@ -67,7 +72,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: path.resolve(__dirname, "../public", "index.html")
+      cache: true,
+      template: path.resolve(__dirname, "../public", "index.html"),
+      inject: "head"
     })
   ],
   resolve: {

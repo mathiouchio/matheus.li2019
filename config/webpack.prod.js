@@ -7,14 +7,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const enableBundleAnalyzer = process.env.ENABLE_ANALYZER === "true";
 
 module.exports = merge(common, {
   output: {
-    path: path.resolve(process.cwd(), "dist"),
-    publicPath: "https://matheus.li/blog/wp-content/themes/matheus/dist/"
+    path: path.resolve(process.cwd(), "dist")
   },
   mode: "production",
   devtool: "source-map",
@@ -31,19 +29,6 @@ module.exports = merge(common, {
           { loader: "css-loader" },
           { loader: "sass-loader" }
         ]
-      },
-      {
-        test: /\.(ttf|otf|eot|woff|woff2|svg|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              outputPath: "assets",
-              publicPath:
-                "https://matheus.li/blog/wp-content/themes/matheus/dist/assets"
-            }
-          }
-        ]
       }
     ]
   },
@@ -54,11 +39,6 @@ module.exports = merge(common, {
     runtimeChunk: false
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      cache: true,
-      template: path.resolve(__dirname, "../public", "index.html"),
-      inject: "head"
-    }),
     new CleanWebpackPlugin({
       verbose: true,
       dry: false
