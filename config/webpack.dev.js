@@ -1,7 +1,8 @@
 const merge = require("webpack-merge");
+const path = require("path");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 const common = require("./webpack.common.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const path = require("path");
 
 const mapStyle = process.env.MAP_STYLE === "true";
 
@@ -31,10 +32,17 @@ module.exports = merge(common, {
           { loader: "css-loader" },
           { loader: "sass-loader" }
         ]
+      },
+      {
+        test: /\.(ttf|otf|eot|woff|woff2|svg|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [{ loader: "file-loader" }]
       }
     ]
   },
   plugins: [
+    new HtmlWebPackPlugin({
+      template: path.resolve(__dirname, "../public", "index.html")
+    }),
     new MiniCssExtractPlugin({
       filename: "[name].css"
     })

@@ -1,5 +1,4 @@
 const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -8,13 +7,7 @@ module.exports = {
   output: {
     filename: "[name].[hash].js",
     path: path.resolve(__dirname, "../dist"),
-    publicPath: "https://matheus.li/blog/wp-content/themes/matheus/dist/"
-  },
-  devServer: {
-    port: 3042,
-    historyApiFallback: true,
-    overlay: true,
-    open: true
+    publicPath: "/"
   },
   module: {
     rules: [
@@ -54,29 +47,9 @@ module.exports = {
         test: /\.css$/,
         include: path.resolve(__dirname, "../node_modules"),
         use: ["style-loader", "css-loader"]
-      },
-      {
-        test: /\.(ttf|otf|eot|woff|woff2|svg|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              outputPath: "assets",
-              publicPath:
-                "https://matheus.li/blog/wp-content/themes/matheus/dist/assets"
-            }
-          }
-        ]
       }
     ]
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      cache: true,
-      template: path.resolve(__dirname, "../public", "index.html"),
-      inject: "head"
-    })
-  ],
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
