@@ -4,6 +4,7 @@ import Form from "./form";
 import Submit from "./submit";
 import Response from "./response";
 import { post, sanitize } from "../../_actions";
+import { RESPONSE } from "../../_constants";
 
 const Contact = () => {
   const [errors, setError] = useState([null, null]);
@@ -66,8 +67,9 @@ const Contact = () => {
       post({
         url: "https://matheus.li/blog/wp-content/themes/matheus/contact.php",
         inputs: value
-      }).then(res => {
+      }).then((res) => {
         console.log(res);
+        setResponse({ code: res === RESPONSE.SUCCESS ? 200 : 400, message: res });
       });
     }
   };

@@ -29,3 +29,7 @@ export const POST_TYPE = {
   STANDARD: "standard",
   GALLERY: "gallery"
 };
+
+export const RESPONSE = {
+  SUCCESS: "Message has been sent"
+};
