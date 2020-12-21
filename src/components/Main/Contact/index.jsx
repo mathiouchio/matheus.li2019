@@ -64,7 +64,7 @@ const Contact = () => {
   const handleSubmit = () => {
     if (passCheck()) {
       post({
-        url: "http://matheus.li/blog/wp-content/themes/matheus/contact.php",
+        url: "https://matheus.li/blog/wp-content/themes/matheus/contact.php",
         inputs: value
       }).then(res => {
         console.log(res);
