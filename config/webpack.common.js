@@ -32,6 +32,11 @@ module.exports = {
         ]
       },
       {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /.*\.(gif|png|jp(e*)g)$/i,
         use: [
           {
@@ -51,7 +56,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", '.tsx', '.ts'],
     alias: {
       snapsvg: path.resolve(
         __dirname,
