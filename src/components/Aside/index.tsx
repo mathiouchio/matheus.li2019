@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 
-const Aside = () => (
+const Aside: React.FC = () => (
   <aside id="branding">
     <svg x="0px" y="0px" viewBox="0 0 1440 900" preserveAspectRatio="none">
       <g>

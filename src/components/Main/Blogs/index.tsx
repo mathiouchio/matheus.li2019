@@ -1,22 +1,22 @@
-import React, { useEffect, useState, createRef } from "react";
+import * as React from "react";
 import { Link } from "react-router-dom";
 
 import { get, ohSnap, scrollspy } from "../../_actions";
 import { REQUEST } from "../../_constants";
 
-const Blog = () => {
-  const [data, setData] = useState({ data: [], loaded: false });
-  const slidesContainer = createRef();
+const Blog: React.FC = () => {
+  const [data, setData] = React.useState([]);
+  const [loaded, setLoaded] = React.useState(false);
+  const slidesContainer = React.createRef<HTMLDivElement>();
 
-  const handleFetch = target => {
-    const url = target ? REQUEST.POPUP(target) : REQUEST.POSTS;
-
-    get(url).then(res => {
-      setData({ data: res, loaded: true });
+  const handleFetch = () => {
+    get(REQUEST.POSTS).then(res => {
+      setData(res);
+      setLoaded(true);
     });
   };
 
-  const handleHover = e => {
+  const handleHover = (e: Event) => {
     if (e.type == "mouseenter") ohSnap(e.currentTarget, 1);
     else ohSnap(e.currentTarget, 0);
   };
@@ -34,11 +34,11 @@ const Blog = () => {
     }, 300);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     handleFetch();
   }, []);
 
-  useEffect(
+  React.useEffect(
     () => {
       // recalculate on fetch complete
       scrollspy.calcPositions();
@@ -48,14 +48,14 @@ const Blog = () => {
 
   return (
     <section id="posts" className="slider noslide">
-      {!data.loaded ? (
+      {!loaded ? (
         "Loading..."
       ) : (
         <div className="slides" ref={slidesContainer}>
           <div className="slide">
             <div className="wrapper">
               <ul>
-                {data.data.map(blog => {
+                {data.map(blog => {
                   const featured = blog.better_featured_image;
                   const { id } = blog;
                   if (featured) {
