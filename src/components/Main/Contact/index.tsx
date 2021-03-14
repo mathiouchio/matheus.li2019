@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FC, FocusEvent, useState } from "react";
 import Online from "./online";
 import Form from "./form";
 import Submit from "./submit";
@@ -6,7 +6,7 @@ import Response from "./response";
 import { post, sanitize } from "../../_actions";
 import { RESPONSE } from "../../_constants";
 
-const Contact = () => {
+const Contact: FC = () => {
   const [errors, setError] = useState([null, null]);
   const [value, setValue] = useState({
     email: "",
@@ -14,7 +14,8 @@ const Contact = () => {
   });
   const [response, setResponse] = useState({ code: null, message: "" });
 
-  const handleChange = ({ currentTarget }) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const currentTarget = event.currentTarget;
     if (currentTarget.type == "email") {
       setValue({
         email: currentTarget.value,
@@ -29,7 +30,8 @@ const Contact = () => {
     }
   };
 
-  const handleValidate = ({ currentTarget }) => {
+  const handleValidate = (event: FocusEvent<HTMLInputElement>) => {
+    const currentTarget = event.currentTarget;
     const email_reg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
     if (currentTarget.type == "email") {
@@ -82,7 +84,7 @@ const Contact = () => {
             <div className="wrapper">
               <Online />
               {response.code ? (
-                <Response response={response} />
+                <Response code={response.code} message={response.message} />
               ) : (
                 <Form
                   handleChange={handleChange}

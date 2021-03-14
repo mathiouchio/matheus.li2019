@@ -6,11 +6,10 @@ import Blogs from "./Blogs";
 import Contact from "./Contact";
 import FinePrint from "./FinePrint";
 import ErrorBoundary from "../ErrorBoundary";
-import ErrorMessage from "./errorMessage";
 
 const Main = () => (
-  <content>
-    <ErrorBoundary Fallback={ErrorMessage}>
+  <main>
+    <ErrorBoundary>
       <Splash />
       <Intro />
       <Projects />
@@ -18,7 +17,7 @@ const Main = () => (
       <Contact />
       <FinePrint />
     </ErrorBoundary>
-  </content>
+  </main>
 );
 
 export default Main;

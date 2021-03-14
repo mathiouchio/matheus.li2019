@@ -1,8 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
+
 import { WPLOCAL } from "../../_constants";
 
-const Form = ({ handleValidate, handleChange }) => {
+interface FormProps {
+  handleChange: Function,
+  handleValidate: Function
+}
+
+const Form: FC<FormProps> = ({ handleValidate, handleChange }) => {
   return (
     <div className="copy">
       <form
@@ -15,8 +20,8 @@ const Form = ({ handleValidate, handleChange }) => {
           <input
             type="email"
             name="email"
-            onChange={handleChange}
-            onBlur={handleValidate}
+            onChange={(event) => handleChange(event)}
+            onBlur={(event) => handleValidate(event)}
             placeholder="type your email"
             required
           />
@@ -24,10 +29,9 @@ const Form = ({ handleValidate, handleChange }) => {
         <div>
           <label>message</label>
           <textarea
-            type="text"
             name="message"
-            onChange={handleChange}
-            onBlur={handleValidate}
+            onChange={(event) => handleChange(event)}
+            onBlur={(event) => handleValidate(event)}
             placeholder="type message ..."
             required
           />
@@ -35,11 +39,6 @@ const Form = ({ handleValidate, handleChange }) => {
       </form>
     </div>
   );
-};
-
-Form.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  handleValidate: PropTypes.func.isRequired
 };
 
 export default Form;

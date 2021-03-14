@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 
-const Contact = () => (
+const Online = () => (
   <div>
     <label>Social</label>
     <span>
@@ -33,4 +33,4 @@ const Contact = () => (
   </div>
 );
 
-export default Contact;
+export default Online;

@@ -1,8 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 
-const ProjectLink = ({ url, project }) => {
+interface ProjectLinkProps {
+  project: Object
+  url: string
+}
+
+const ProjectLink: FC<ProjectLinkProps> = ({ url, project }) => {
   const linkURL = new URL(url);
 
   return (
@@ -20,11 +24,6 @@ const ProjectLink = ({ url, project }) => {
       <span className="hero smler">Learn more</span>
     </Link>
   );
-};
-
-ProjectLink.propTypes = {
-  project: PropTypes.object.isRequired,
-  url: PropTypes.string.isRequired
 };
 
 export default ProjectLink;

@@ -1,11 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
-const Submit = ({ handleSubmit }) => (
+interface SubmitProps {
+  handleSubmit: Function
+}
+
+const Submit: FC<SubmitProps> = ({ handleSubmit }) => (
   <div
     className="expand"
-    onClick={handleSubmit}
-    // data-hidden={this.props.response ? "" : null}
+    onClick={(e) => handleSubmit(e)}
   >
     <a id="formsubmit">
       <svg x="0px" y="0px" viewBox="0 0 40 40">
@@ -17,9 +19,5 @@ const Submit = ({ handleSubmit }) => (
     </a>
   </div>
 );
-
-Submit.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
-};
 
 export default Submit;

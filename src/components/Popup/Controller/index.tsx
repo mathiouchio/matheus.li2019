@@ -1,9 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { CONTROL, POST_TYPE } from "../../_constants";
 
-const Controller = props => {
+interface ControllerProps {
+  data: Array<Object>,
+  loaded: Boolean,
+  location: {
+    state: {
+      format: string
+    }
+  },
+  metaData: {
+    currentslide: number,
+    previouslide: number,
+    muted: Boolean
+  },
+  portraits: Array<Boolean>,
+  setMetaData: Function
+};
+
+const Controller: FC<ControllerProps> = (props) => {
   const { location, loaded, data, metaData, setMetaData, portraits } = props;
   const { currentslide, muted } = metaData;
   const currentIndex = -1 + currentslide;
@@ -16,8 +32,9 @@ const Controller = props => {
 
   const totalslide = data.length;
 
-  const handleCurrentSlideLocation = e => {
-    const type = e.target.dataset.control;
+  const handleCurrentSlideLocation = (event: React.MouseEvent<HTMLElement>) => {
+    const type = event.currentTarget.getAttribute("data-control");
+
     if (type === CONTROL.PREV) {
       handlePrev();
     } else {
@@ -37,7 +54,9 @@ const Controller = props => {
   };
 
   const handlePrev = () => {
+    console.log("currentslide", currentslide);
     let nextSlide = currentslide - 1;
+    console.log("nextSlide", nextSlide);
 
     if (currentslide > 1) {
       setMetaData({
@@ -63,10 +82,10 @@ const Controller = props => {
           {CONTROL.CLOSE}
         </Link>
       </span>
-      <i>{currentslide}</i>
-      <divider> / </divider>
-      <c>{totalslide}</c>
-      <t>{format}</t>
+      <span className="currentslide">{currentslide}</span>
+      <span className="divider"> / </span>
+      <span className="totalslide">{totalslide}</span>
+      <span className="postFormat">{format}</span>
       <span data-control={CONTROL.PREV} onClick={handleCurrentSlideLocation}>
         {CONTROL.PREV}
       </span>
@@ -74,27 +93,12 @@ const Controller = props => {
         {CONTROL.NEXT}
       </span>
       {format == POST_TYPE.VIDEO && (
-        <mute data-control={CONTROL.MUTE}>{muted ? "unmute" : "mute"}</mute>
+        <span className="mute" data-control={CONTROL.MUTE}>{muted ? "unmute" : "mute"}</span>
       )}
-      <fs data-control={CONTROL.FULLSCREEN}>{CONTROL.FULLSCREEN}</fs>
-      {portraits[currentIndex] && <scroll>scroll</scroll>}
+      <span className="fullscreen" data-control={CONTROL.FULLSCREEN}>{CONTROL.FULLSCREEN}</span>
+      {portraits[currentIndex] && <span className="scroll">scroll</span>}
     </div>
   );
 };
-
-Controller.propTypes = {
-  data: PropTypes.array.isRequired,
-  loaded: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired,
-  metaData: PropTypes.shape({
-    currentslide: PropTypes.number.isRequired,
-    previouslide: PropTypes.number.isRequired,
-    muted: PropTypes.bool.isRequired
-  }),
-  portraits: PropTypes.array.isRequired,
-  setMetaData: PropTypes.func.isRequired
-};
-
-Controller.defaultProps = {};
 
 export default Controller;
