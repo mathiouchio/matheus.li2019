@@ -54,9 +54,7 @@ const Controller: FC<ControllerProps> = (props) => {
   };
 
   const handlePrev = () => {
-    console.log("currentslide", currentslide);
     let nextSlide = currentslide - 1;
-    console.log("nextSlide", nextSlide);
 
     if (currentslide > 1) {
       setMetaData({

@@ -70,7 +70,6 @@ const Contact: FC = () => {
         url: "https://matheus.li/blog/wp-content/themes/matheus/contact.php",
         inputs: value
       }).then((res) => {
-        console.log(res);
         setResponse({ code: res === RESPONSE.SUCCESS ? 200 : 400, message: res });
       });
     }
