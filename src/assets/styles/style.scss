@@ -389,7 +389,7 @@ nav {
     }
   }
 }
-content {
+main {
   .thumb {
     height: 160px;
     margin: 0 auto 25px;
@@ -667,40 +667,39 @@ section,
     > *:last-child {
       margin-right: $span-spacing;
     }
-    i,
-    c,
-    t,
-    divider {
-      line-height: .8;
+    .currentslide {
+      margin-right: 0
     }
-    scroll,
-    mute,
-    fs,
-    t {
+    .totalslide {
+      margin-left: 0
+    }
+    .scroll,
+    .mute,
+    .fullscreen,
+    .postFormat {
       font-family: $font-stack;
-      line-height: .6;
       margin-left: 5px;
       text-transform: lowercase;
     }
-    [data-control="mute"],
+    [data-control=".mute"],
     [data-control="fullscreen"] {
       display: none;
     }
     &[data-video] {
       padding-right: 60px;
-      scroll {
+      .scroll {
         display: none;
       }
-      fs,
-      mute {
+      .fullscreen,
+      .mute {
         display: block;
       }
     }
     &[data-single] {
-      i,
-      c,
-      t,
-      divider,
+      .currentslide,
+      .totalslide,
+      .postFormat,
+      .divider,
       [data-control="prev"],
       [data-control="next"] {
         display: none;
